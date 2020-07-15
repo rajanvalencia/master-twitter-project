@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    sqlScriptEncoding: UTF-8
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/twitter?useSSL=false&requireSSL=false
+    username: rajanvalencia
+    password: secret
+  # アプリケーション起動時にデータベースを初期化しないようにする
+  jpa:
+    hibernate:
+      ddl-auto: update
+    # spring boot起動時にDBにテーブル作成できない問題の対応
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect
+logging:
+  level:
+    sql: debug

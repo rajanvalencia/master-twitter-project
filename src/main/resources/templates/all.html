@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <table class="table table-striped">
+        <thead>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Image Url</th>
+            <th>Screen Name</th>
+            <th>Description</th>
+            <th>Follower</th>
+            <th>Following</th>
+            <th>Tweet ID</th>
+            <th>Content</th>
+            <th>Retweets</th>
+            <th>Favorites</th>
+            <th>Created At</th>
+        </thead>
+        <tbody>
+            <tr th:each=" tweet : ${tweets}">
+                <td th:text="${tweet.id}"></td>
+                <td th:text="${tweet.userId}"></td>
+                <td>
+                    <img th:src="${tweet.userProfileImageURL}" width="50" style="border-radius: 50%" />
+                </td>
+                <td th:text="${tweet.userScreenName}"></td>
+                <td th:text="${tweet.userDescription}"></td>
+                <td th:text="${tweet.userFollowerCount}"></td>
+                <td th:text="${tweet.userFollowingCount}"></td>
+                <td th:text="${tweet.tweetId}"></td>
+                <td th:text="${tweet.content}"></td>
+                <td th:text="${tweet.retweetCount}"></td>
+                <td th:text="${tweet.favoriteCount}"></td>
+                <td th:text="${tweet.createdAt}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
