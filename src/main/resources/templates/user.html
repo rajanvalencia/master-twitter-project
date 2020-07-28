@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Screen name</th>
+                <th scope="col">Name</th>
+                <th scope="col">Follow</th>
+                <th scope="col">Followers</th>
+                <th scope="col">Tweets</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <img th:src="@{${user.profileImageUrl}}" width="50" style="border-radius: 50%" />
+                </td>
+                <td th:text="${user.screenName}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.follow}"></td>
+                <td th:text="${user.follower}"></td>
+                <td><a href="/tweets">Tweets</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

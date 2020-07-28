@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Text</th>
+                <th scope="col">Retweets</th>
+                <th scope="col">Favorites</th>
+            </tr>
+        </thead>
+        <tbody th:each="tweet : ${tweets}">
+            <tr>
+                <td th:text="${tweet.id}"></td>
+                <td th:text="${tweet.createdAt}"></td>
+                <td th:text="${tweet.content}"></td>
+                <td>
+                    <a th:href="@{'/tweets/' + ${tweet.id} + '/retweetedUsers'}">
+                        [[${tweet.retweetCount}]]
+                    </a>
+                </td>
+                <td th:text="${tweet.favoriteCount}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
