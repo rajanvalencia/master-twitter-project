@@ -1,11 +1,15 @@
 package com.example.demo.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,6 +35,10 @@ public class Tweet {
 	@JsonIgnore
 	@ManyToOne
 	private TwitterUser twitterUser;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "tweet", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TwitterUserRetweets> retweetedUsers;
 	
 	public Long getId() {
 		return id;
@@ -86,6 +94,14 @@ public class Tweet {
 
 	public void setTwitterUser(TwitterUser twitterUser) {
 		this.twitterUser = twitterUser;
+	}
+
+	public List<TwitterUserRetweets> getRetweetedUsers() {
+		return retweetedUsers;
+	}
+
+	public void setRetweetedUsers(List<TwitterUserRetweets> retweetedUsers) {
+		this.retweetedUsers = retweetedUsers;
 	}
 
 }
