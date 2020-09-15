@@ -1,16 +1,10 @@
 package com.example.demo.model;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -32,13 +26,11 @@ public class Tweet {
 	
 	private Date createdAt;
 	
+	private Boolean isTracking = false;
+	
 	@JsonIgnore
 	@ManyToOne
 	private TwitterUser twitterUser;
-	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-	@JoinTable(name = "twitter_users_retweets", joinColumns = @JoinColumn(name = "tweet_id"), inverseJoinColumns = @JoinColumn(name = "twitter_user__id"))
-	private List<TwitterUser> retweetedUsers;
 	
 	public Long getId() {
 		return id;
@@ -80,20 +72,20 @@ public class Tweet {
 		this.createdAt = createdAt;
 	}
 
+	public Boolean getIsTracking() {
+		return isTracking;
+	}
+
+	public void setIsTracking(Boolean isTracking) {
+		this.isTracking = isTracking;
+	}
+
 	public TwitterUser getTwitterUser() {
 		return twitterUser;
 	}
 
 	public void setTwitterUser(TwitterUser twitterUser) {
 		this.twitterUser = twitterUser;
-	}
-
-	public List<TwitterUser> getRetweetedUsers() {
-		return retweetedUsers;
-	}
-
-	public void setRetweetedUsers(List<TwitterUser> retweetedUsers) {
-		this.retweetedUsers = retweetedUsers;
 	}
 
 }

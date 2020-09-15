@@ -37,7 +37,7 @@ public class TwitterService {
 	TweetRepository tweetRepository;
 	
     @SuppressWarnings("rawtypes")
-	public void getUserTimeLine(String userName) {
+	public void getUserTimeLine(String userName, Boolean isTracking) {
 		try {
 			
 			int firstPage = 2;// 探索開始ページ
@@ -52,11 +52,6 @@ public class TwitterService {
 
 			// 指定ユーザの Tweet を分析
 			for (Status status : statuses) {
-				
-				System.out.format("userId: %d\ncontent: %s\nretweetCount: %d\nfavoriteCount: %d\n", 
-						status.getUser().getId(), status.getText(), status.getRetweetCount(), status.getFavoriteCount());
-				
-				
 				
 				TwitterUser user = new TwitterUser();
 			    user.setCreatedAt(status.getUser().getCreatedAt());
@@ -74,6 +69,7 @@ public class TwitterService {
 			    
 			    Tweet tweet = new Tweet();
 				tweet.setId(status.getId());
+				tweet.setIsTracking(isTracking);
 				tweet.setCreatedAt(status.getCreatedAt());
 				tweet.setContent(status.getText());
 				tweet.setRetweetCount(status.getRetweetCount());
@@ -95,7 +91,7 @@ public class TwitterService {
 					// リツイートユーザ情報表示
 					System.out.println("retweet_user_info: ");
 					for (User retweet_user : retweet_users) {
-						System.out.println("@" + retweet_user.getName() + ", ID: " + retweet_user.getId());
+						//System.out.println("@" + retweet_user.getName() + ", ID: " + retweet_user.getId());
 
 						TwitterUser retweetedUser = new TwitterUser();
 						retweetedUser.setCreatedAt(retweet_user.getCreatedAt());
@@ -110,18 +106,16 @@ public class TwitterService {
 						retweetedUser.setScreenName(retweet_user.getScreenName());
 						retweetedUser.setUrl(retweet_user.getURL());
 						retweetedUser = twitterUserRepository.save(retweetedUser);
-						
 						retweetedUsers.add(retweetedUser);
 					}
+					//tweet.setRetweetedUsers(retweetedUsers);
+					tweetRepository.save(tweet);
+					
 					i++;
 				}
 				if (i == 1)
 					break;
 				helpmap = helps.getRateLimitStatus();
-				
-				tweet.setRetweetedUsers(retweetedUsers);
-				tweetRepository.save(tweet);
-				
 			}
 
 		} catch (TwitterException e) {// エラー処理
@@ -129,5 +123,9 @@ public class TwitterService {
 			System.out.println("失敗");
 
 		}
-	}
+	}    
+    
+   public void searchTweetRetweetedUsersRetweetedUsers() {
+	   
+   }
 }

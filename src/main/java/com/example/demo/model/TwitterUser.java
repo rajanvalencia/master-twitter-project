@@ -8,9 +8,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -43,11 +44,13 @@ public class TwitterUser {
 	@Column(columnDefinition = "TEXT")
 	private String url;
 	
-	@OneToMany(mappedBy = "twitterUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(mappedBy = "twitterUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Tweet> tweets;
 	
-	@ManyToMany(mappedBy = "retweetedUsers")
-	private List<Tweet> retweeted;
+	@JsonIgnore
+	@OneToMany(mappedBy = "twitterUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TwitterUserRetweets> retweets;
 	
 	public Long getId() {
 		return id;
@@ -145,12 +148,12 @@ public class TwitterUser {
 		this.tweets = tweets;
 	}
 
-	public List<Tweet> getRetweeted() {
-		return retweeted;
+	public List<TwitterUserRetweets> getRetweets() {
+		return retweets;
 	}
 
-	public void setRetweeted(List<Tweet> retweeted) {
-		this.retweeted = retweeted;
+	public void setRetweets(List<TwitterUserRetweets> retweets) {
+		this.retweets = retweets;
 	}
 
 }

@@ -3,8 +3,8 @@ spring:
     sqlScriptEncoding: UTF-8
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/twitter?useSSL=false&requireSSL=false
-    username: rajanvalencia
-    password: secret
+    username: root
+    password: 
   # アプリケーション起動時にデータベースを初期化しないようにする
   jpa:
     hibernate:

@@ -12,4 +12,8 @@ public interface TweetRepository extends JpaRepository<Tweet, Long>{
 
 	List<Tweet> findAllByOrderByCreatedAtDesc();
 	
+	List<Tweet> findByIsTrackingTrue();
+	
+	//List<Tweet> findByTwitterUser_ScreenName(String userName);
+	
 }
